@@ -3,8 +3,8 @@ require 'rexml/document'
 class Feed
   include Enumerable
 
-  def initialize(file_path="spec/fixtures/example.xml")
-    @file_path = file_path
+  def initialize(file_path=nil)
+    @file_path = file_path ||= ENV["XML_FEED_PATH"]
     @raw = read_file(file_path)
     parse
   end

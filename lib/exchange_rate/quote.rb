@@ -27,23 +27,6 @@ class Quote
     @from = value.upcase || DEFAULT_FROM
   end
 
-  def get_rates
-    new_rates = ECBFeed.new().each do |rate|
-      rate
-    end
-
-    date = ensure_weekday @date
-
-    REXML::XPath.each(new_rates, "[@time='#{date.xmlschema}']") do |rate|
-      return rate.children.reduce({}) do |rates, currency|
-        key = currency.attribute('currency').value
-        value = currency.attribute('rate').value
-        rates[key] = value
-        rates
-      end
-    end
-  end
-
   def get_conversion_rate
     rates[DEFAULT_FROM] = DEFAULT_AMOUNT.to_s
 
@@ -62,12 +45,27 @@ class Quote
     round(round(rates[@to]) * (1 / round(rates[@from])))
   end
 
-  def ensure_weekday date
-    # Make sure any dates are rounded
-    # back to the nearest last weekday 
-    # (as the ECB feed does not have rates
-    # mapped to weekend dates
-    Helper::ensure_weekday(date)
+  def round value
+    Float(format('%.5g', value))
+  end
+end
+
+class ECBQuote < Quote
+  def get_rates
+    new_rates = ECBFeed.new().each do |rate|
+      rate
+    end
+
+    date = ensure_weekday @date
+
+    REXML::XPath.each(new_rates, "[@time='#{date.xmlschema}']") do |rate|
+      return rate.children.reduce({}) do |rates, currency|
+        key = currency.attribute('currency').value
+        value = currency.attribute('rate').value
+        rates[key] = value
+        rates
+      end
+    end
   end
 
   def date_in_range?(date = @date)
@@ -79,7 +77,11 @@ class Quote
     false
   end
 
-  def round value
-    Float(format('%.5g', value))
+  def ensure_weekday date
+    # Make sure any dates are rounded
+    # back to the nearest last weekday 
+    # (as the ECB feed does not have rates
+    # mapped to weekend dates
+    Helper::ensure_weekday(date)
   end
 end

@@ -4,15 +4,15 @@ require "exchange_rate/quote"
 module ExchangeRate
   # Request an exchange rate
   #
-  # @param date [Date] Date object
-  # @param base_curr [String] Currency to convert from 
-  # @param counter_curr [String] Currency to convert to
-  # @return [Numeric] Exchange rate of base_curr to counter_curr
-  def ExchangeRate.at(date, base_curr, counter_curr)
-    Quote.new({
+  # @param date [Date,String] Date of eithe type Date or String
+  # @param base [String] Currency to convert from 
+  # @param to [String] Currency to convert to
+  # @return [Float] Exchange rate
+  def ExchangeRate.at(date, from, to)
+    ECBQuote.new({
       'date' => date,
-      'from' => base_curr,
-      'to'   => counter_curr
+      'from' => from,
+      'to'   => to
     }).get_conversion_rate
   end
 end
