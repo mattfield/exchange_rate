@@ -1,3 +1,5 @@
+# WIP branch using Ox instead of REXML
+
 # ExchangeRate
 
 A small foreign exchange library.
