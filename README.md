@@ -1,8 +1,6 @@
 # ExchangeRate
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/exchange_rate`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A small foreign exchange library.
 
 ## Installation
 
@@ -22,7 +20,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+ExchangeRate expects you to define the location on disk of the ECB feed to pull from. This should be done in an envvar:
+
+`export XML_FEED_PATH=/path/to/feed.xml`
+
+The library exposes the following interface:
+
+```Ruby
+require 'exchange_rate'
+
+ExchangeRate.at(date, currency_from, currency_to)
+```
 
 ## Development
 
@@ -32,8 +40,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/exchange_rate.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/mattfield/exchange_rate.
 
 ## License
 
