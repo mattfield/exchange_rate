@@ -3,13 +3,14 @@ require 'rexml/document'
 class Feed
   include Enumerable
 
-  def initialize file_path
+  def initialize(file_path="spec/fixtures/example.xml")
     @file_path = file_path
     @raw = read_file(file_path)
     parse
   end
 
-  attr_reader :file_path, :raw
+  attr_reader :raw
+  attr_accessor :file_path
 
   def read_file(file_path)
     File.open(file_path) { |f| f.read }
