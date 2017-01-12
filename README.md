@@ -29,8 +29,15 @@ The library exposes the following interface:
 ```Ruby
 require 'exchange_rate'
 
-ExchangeRate.at(date, currency_from, currency_to)
+ExchangeRate.at(date<String|Date>, currency_from<String>, currency_to<String>)
+
+# e.g. 
+
+ExchangeRate.at(Date.today, "USD", "EUR")
+#=> 0.93642
 ```
+
+The current implementation assumes usage of the [90-day ECB feed](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml).
 
 ## Development
 
