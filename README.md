@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ExchangeRate expects you to define the location on disk of the ECB feed to pull from. This should be done in an envvar:
 
-`export XML_FEED_PATH=/path/to/feed.xml`
+`export XML_FEED_PATH=/path/to/feed.xml` or `ENV["XML_FEED_PATH"]=/path/to/feed.xml` if you want to avoid added to your global env.
 
 The library exposes the following interface:
 
