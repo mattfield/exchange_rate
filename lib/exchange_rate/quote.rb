@@ -1,5 +1,6 @@
 require 'exchange_rate/feed'
 require 'exchange_rate/helper'
+require 'date'
 
 class Quote
   DEFAULT_AMOUNT = 1
