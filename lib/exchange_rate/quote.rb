@@ -28,6 +28,10 @@ class Quote
     @from = value.upcase || DEFAULT_FROM
   end
 
+  def to=(value)
+    @to = value.upcase || @to
+  end
+
   def get_conversion_rate
     rates[DEFAULT_FROM] = DEFAULT_AMOUNT.to_s
 
@@ -57,7 +61,7 @@ class ECBQuote < Quote
       rate
     end
 
-    date = ensure_weekday @date
+    @date = ensure_weekday(date_in_range?(@date))
 
     REXML::XPath.each(new_rates, "[@time='#{date.xmlschema}']") do |rate|
       return rate.children.reduce({}) do |rates, currency|
@@ -70,11 +74,12 @@ class ECBQuote < Quote
   end
 
   def date_in_range?(date = @date)
-    oldest_date = rates.last[:date]
+    # ECB feed only contains 3 months of data
+    oldest_date = (Date.today << 3)
 
     return date if date >= oldest_date
 
-    raise Exception, 'Date too old - must be within last 3 months'
+    raise Exception, 'Invalid date - must be within last 3 months'
     false
   end
 
