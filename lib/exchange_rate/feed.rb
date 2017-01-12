@@ -21,10 +21,6 @@ class Feed
 end
 
 class ECBFeed < Feed
-  def parse
-    super
-  end
-
   def each
     REXML::XPath.each(@parsed, '/gesmes:Envelope/Cube/Cube[@time]') do |day|
       date = Date.parse(day.attribute('time').value)
