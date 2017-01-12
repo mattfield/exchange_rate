@@ -1,6 +1,6 @@
 module Helper
   def Helper::is_weekday? date
-    day = Date.parse(date).wday
+    day = date.wday
     if (1..5).include? day
       true
     else
