@@ -11,16 +11,16 @@ module Helper
   def Helper::ensure_weekday date
     return date if is_weekday?(date)
 
-    back_to = Date.parse(date) - 5
+    back_to = date - 5
     return_date = nil
 
-    Date.parse(date).step(back_to, -1) { |d|
-      if is_weekday?(d.to_s)
+    date.step(back_to, -1) { |d|
+      if is_weekday?(d)
         return_date = d
         break
       end
     }
 
-    return_date.xmlschema
+    return_date
   end
 end

@@ -6,7 +6,7 @@ class Quote
   DEFAULT_FROM = 'EUR'
 
   def initialize(options = {})
-    @date = options['date']
+    @date = options['date'].is_a?(String) ? Date.parse(options['date']) : options['date']
     @amount = options['amount'] || DEFAULT_AMOUNT
     @from = options['from'] || DEFAULT_FROM
     @to = options['to']
@@ -23,20 +23,11 @@ class Quote
     @date = value ? date_in_range?(value) : @date
   end
 
-  def amount=(value)
-    @amount = (value || DEFAULT_AMOUNT).to_f
-    raise StandardError, 'Invalid amount - must be greater than zero' if @amount.zero?
-  end
-
   def from=(value)
     @from = value.upcase || DEFAULT_FROM
   end
 
   def get_rates
-    rates = using_default_from? ? get_default_rates : get_updated_rates
-  end
-
-  def get_default_rates
     new_rates = ECBFeed.new().each do |rate|
       rate
     end
@@ -44,20 +35,31 @@ class Quote
     date = ensure_weekday @date
 
     REXML::XPath.each(new_rates, "[@time='#{date.xmlschema}']") do |rate|
-      return rate.children.reduce({}){ |cumulate, entry|
-        key = entry.attribute('currency').value
-        value = entry.attribute('rate').value
-        cumulate[key] = value
-        cumulate
-      }
+      return rate.children.reduce({}) do |rates, currency|
+        key = currency.attribute('currency').value
+        value = currency.attribute('rate').value
+        rates[key] = value
+        rates
+      end
     end
   end
 
-  def get_updated_rates
-  end
+  def get_conversion_rate
+    rates[DEFAULT_FROM] = DEFAULT_AMOUNT.to_s
 
-  def using_default_from?
-    from == DEFAULT_FROM
+    if !rates[@to.to_s] || !rates[@from.to_s]
+      raise Exception, "FX error - either from or to currencies do not exist, or were not provided"
+    end
+
+    if @from.to_s == DEFAULT_FROM
+      return round(rates[@from])
+    end
+
+    if @to.to_s == DEFAULT_FROM
+      return round(1 / round(rates[@from]))
+    end
+
+    round(round(rates[@to]) * (1 / round(rates[@from])))
   end
 
   def ensure_weekday date
@@ -75,5 +77,9 @@ class Quote
 
     raise Exception, 'Date too old - must be within last 3 months'
     false
+  end
+
+  def round value
+    Float(format('%.5g', value))
   end
 end
