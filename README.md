@@ -20,7 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-ExchangeRate expects you to define the location on disk of the ECB feed to pull from. This should be done in an envvar:
+The current implementation is designed to work with the [90-day ECB feed](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml). Grab a copy of that,
+and pop the location on disk into an environment variable:
 
 `export XML_FEED_PATH=/path/to/feed.xml` or `ENV["XML_FEED_PATH"]=/path/to/feed.xml` if you want to avoid added to your global env.
 
@@ -36,8 +37,6 @@ ExchangeRate.at(date<String|Date>, currency_from<String>, currency_to<String>)
 ExchangeRate.at(Date.today, "USD", "EUR")
 #=> 0.93642
 ```
-
-The current implementation assumes usage of the [90-day ECB feed](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml).
 
 ## Development
 
