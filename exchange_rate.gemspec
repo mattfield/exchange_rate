@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Matt Field"]
   spec.email         = ["mattfield@fastmail.fm"]
 
-  spec.summary       = %q{FX conversion library}
+  spec.summary       = %q{FX conversion library based on the ECB 90-day feed}
   spec.homepage      = "https://github.com/mattfield/exchange_rate"
   spec.license       = "MIT"
 
