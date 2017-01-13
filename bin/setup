@@ -6,4 +6,5 @@ set -vx
 bundle install
 
 # Do any other automated setup that you need to do here
+mkdir -p spec/fixtures
 rake spec/fixtures/example.xml
