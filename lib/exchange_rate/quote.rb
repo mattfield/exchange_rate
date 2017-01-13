@@ -83,7 +83,9 @@ class ECBQuote < Quote
       end
     end
 
-    # ECB feed only contains 3 months of data
+    # ECB feed only contains 3 months of data, so we need to check
+    # to see whether the supplied date falls into that range.
+    # If it doesn't, we throw an exception and bail
     oldest_date = (Date.today << 3)
 
     return date if date >= oldest_date
