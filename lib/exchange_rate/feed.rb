@@ -1,4 +1,5 @@
 require 'rexml/document'
+require 'exchange_rate/parser'
 
 class Feed
   include Enumerable
@@ -17,7 +18,7 @@ class Feed
   end
 
   def parse
-    @parsed = REXML::Document.new @raw
+    Parser::Plain.new(@raw).parse
   end
 end
 
