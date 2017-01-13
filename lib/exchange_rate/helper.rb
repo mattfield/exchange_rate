@@ -1,4 +1,8 @@
 module Helper
+  # Checks whether a provided date is a weekday
+  #
+  # @param date [Date] The date to be checked
+  # @return [Boolean] Whether date is a weekend
   def Helper::is_weekday? date
     day = date.wday
     if (1..5).include? day
@@ -8,6 +12,12 @@ module Helper
     end
   end
 
+  # Ensures that a given date resolved backwards
+  # to the nearest available weekday
+  #
+  # @param date [Date] The date to be checked
+  # @return [Date] Either the provided date or date
+  #   of closest, previous weekday
   def Helper::ensure_weekday date
     return date if is_weekday?(date)
 

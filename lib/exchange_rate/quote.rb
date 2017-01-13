@@ -16,10 +16,16 @@ class Quote
 
   attr_reader :amount, :date, :from, :to
 
+  # Sets the rates of the Quote class
+  #
+  # @return [Hash<String, String>] A hash of { currency => rate } pairs
   def rates
     @rates ||= get_rates
   end
 
+  # Calculates the conversion rate between two currencies
+  #
+  # @return [Float] The calculated conversion rate
   def get_conversion_rate
     rates[DEFAULT_FROM] = DEFAULT_AMOUNT.to_s
 
@@ -38,12 +44,21 @@ class Quote
     round(round(rates[@to]) * (1 / round(rates[@from])))
   end
 
+  # Formats a given numeric value as a Float
+  # to five decimal places
+  #
+  # @param [Numeric] Any numeric type to round
+  # @return [Float] Float-converted Numeric to 5d.p.
   def round value
     Float(format('%.5g', value))
   end
 end
 
 class ECBQuote < Quote
+  # Fetches and calculates the conversation rates for
+  # a given date
+  #
+  # @return [Hash<String, String>] A hash of { currency => rate } pairs
   def get_rates
     new_rates = []
 
@@ -60,6 +75,12 @@ class ECBQuote < Quote
     get_rates_by_date(@date, new_rates)
   end
 
+  # Computes a range of conversion state for a specific date
+  #
+  # @param date [Date] The date to fetch rates for
+  # @param new_rates [Array<Hash>] An array of all rates for all
+  #   dates in the feed
+  # @return [Hash<String, String>] A hash of { currency => rate } pairs
   def get_rates_by_date(date = @date, new_rates)
     rate_nodes = new_rates.select { |date_node|
       date_node[:date] == @date
@@ -71,6 +92,18 @@ class ECBQuote < Quote
     }
   end
 
+  # Checks whether a given date is in range for the rates
+  # we have available in the feed. Also optionally 
+  # decrements the provided date by 1 if the feed being
+  # used has not yet been updated for the day, meaning
+  # today's rates will not yet be available
+  #
+  # @param date [Date] Date to check
+  # @param new_rates [Array<Hash>] An array of all rates for all
+  #   dates in the feed
+  # @return [Date|Exception] Either returns the date passed in,
+  #   a decremented date, or an Exception if the given date
+  #   is out of range
   def date_in_range?(date = @date, new_rates = @rates)
     # ECB feed rates for the day are not updated until ~4pm CET.
     # In the case where we want the rates for today, but we still have
