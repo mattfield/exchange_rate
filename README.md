@@ -38,7 +38,7 @@ ExchangeRate.at(Date.today, "USD", "EUR")
 #=> 0.93642
 ```
 
-`currency_from` and `currency_to` must be three-letter ISO codes, but can by either upper or lowercase.
+`currency_from` and `currency_to` must be three-letter ISO codes, but can be either upper or lowercase.
 
 ## Development
 
