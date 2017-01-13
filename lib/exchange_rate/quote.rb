@@ -9,8 +9,8 @@ class Quote
   def initialize(options = {})
     @date = options['date'].is_a?(String) ? Date.parse(options['date']) : options['date']
     @amount = options['amount'] || DEFAULT_AMOUNT
-    @from = options['from'] || DEFAULT_FROM
-    @to = options['to']
+    @from = options['from'].upcase || DEFAULT_FROM
+    @to = options['to'].upcase
     rates
   end
 
@@ -57,20 +57,26 @@ end
 
 class ECBQuote < Quote
   def get_rates
-    new_rates = ECBFeed.new().each do |rate|
-      rate
-    end
+    new_rates = []
+
+    ECBFeed.new().each { |rate|
+      new_rates << rate
+    }
 
     @date = ensure_weekday(date_in_range?(@date, new_rates))
 
-    REXML::XPath.each(new_rates, "[@time='#{date.xmlschema}']") do |rate|
-      return rate.children.reduce({}) do |rates, currency|
-        key = currency.attribute('currency').value
-        value = currency.attribute('rate').value
-        rates[key] = value
-        rates
-      end
-    end
+    get_rates_by_date(@date, new_rates)
+  end
+
+  def get_rates_by_date(date = @date, new_rates)
+    rate_nodes = new_rates.select { |date_node|
+      date_node[:date] == @date
+    }
+
+    rate_nodes.reduce({}) { |rates, currency|
+      rates[currency[:iso]] = currency[:rate]
+      rates
+    }
   end
 
   def date_in_range?(date = @date, new_rates)
@@ -78,7 +84,7 @@ class ECBQuote < Quote
     # In the case where we want the rates for today, but we still have
     # yesterday's feed, we need to step the query date back by a day
     if date == Date.today
-      if new_rates.first.attribute('time') != date
+      if new_rates.first[:date] != date
         date = date - 1
       end
     end

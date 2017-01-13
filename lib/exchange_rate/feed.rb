@@ -18,21 +18,21 @@ class Feed
   end
 
   def parse
-    Parser::Plain.new(@raw).parse
+    @parsed = Parser::Plain.new(@raw).parse
   end
 end
 
 class ECBFeed < Feed
   def each
-    REXML::XPath.each(@parsed, '/gesmes:Envelope/Cube/Cube[@time]') do |day|
-      date = Date.parse(day.attribute('time').value)
-      REXML::XPath.each(day, './Cube') do |currency|
+    @parsed.locate("gesmes:Envelope/Cube/*/").each { |day|
+      date = Date.parse(day.time)
+      day.nodes().each { |date_node|
         yield(
           date: date,
-          iso: currency.attribute('currency').value,
-          rate: Float(currency.attribute('rate').value)
+          iso: date_node.currency,
+          rate: Float(date_node.rate)
         )
-      end
-    end
+      }
+    }
   end
 end
