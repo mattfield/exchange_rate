@@ -18,6 +18,10 @@ Or install it yourself as:
 
     $ gem install exchange_rate
 
+## Documentation
+
+Docs are provided in `doc/`, due to issues getting this onto RubyGems.
+
 ## Usage
 
 The current implementation is designed to work with the [90-day ECB feed](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml). Grab a copy of that,
