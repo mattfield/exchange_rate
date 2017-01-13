@@ -1,6 +1,6 @@
 # ExchangeRate
 
-A small foreign exchange library using the very fast XML parser and Object marshaller.
+A small foreign exchange library.
 
 ## Installation
 
