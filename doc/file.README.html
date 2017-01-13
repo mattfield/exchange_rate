@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.7
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-ExchangeRate">ExchangeRate</h1>
+
+<p>A small foreign exchange library using the very fast XML parser and Object
+marshaller.</p>
+
+<h2 id="label-Installation">Installation</h2>
+
+<p>Add this line to your application&#39;s Gemfile:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exchange_rate</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre class="code ruby"><code class="ruby">$ bundle</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre class="code ruby"><code class="ruby">$ gem install exchange_rate</code></pre>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>The current implementation is designed to work with the <a
+href="https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml">90-day
+ECB feed</a>. Grab a copy of that, and pop the location on disk into an
+environment variable:</p>
+
+<p><code>export XML_FEED_PATH=/path/to/feed.xml</code> or
+<code>ENV["XML_FEED_PATH"]=/path/to/feed.xml</code> if you want to avoid
+added to your global env.</p>
+
+<p>The library exposes the following interface:</p>
+
+<pre class="code ruby"><code class="ruby">require &#39;exchange_rate&#39;
+
+ExchangeRate.at(date&lt;String|Date&gt;, currency_from&lt;String&gt;, currency_to&lt;String&gt;)
+
+# e.g. 
+
+ExchangeRate.at(Date.today, &quot;USD&quot;, &quot;EUR&quot;)
+#=&gt; 0.93642</code></pre>
+
+<p><code>currency_from</code> and <code>currency_to</code> must be
+three-letter ISO codes, but can be either upper or lowercase.</p>
+
+<h2 id="label-Development">Development</h2>
+
+<p>After checking out the repo, run <code>bin/setup</code> to install
+dependencies. Then, run <code>rake spec</code> to run the tests.
+<code>SimpleCov</code> will output a coverage report to
+<code>/coverage</code> You can also run <code>bin/console</code> for an
+interactive prompt that will allow you to experiment.</p>
+
+<p>To install this gem onto your local machine, run <code>bundle exec rake
+install</code>. To release a new version, update the version number in
+<code>version.rb</code>, and then run <code>bundle exec rake
+release</code>, which will create a git tag for the version, push git
+commits and tags, and push the <code>.gem</code> file to <a
+href="https://rubygems.org">rubygems.org</a>.</p>
+
+<h2 id="label-Contributing">Contributing</h2>
+
+<p>Bug reports and pull requests are welcome on GitHub at <a
+href="https://github.com/mattfield/exchange_rate">github.com/mattfield/exchange_rate</a>.</p>
+
+<h2 id="label-License">License</h2>
+
+<p>The gem is available as open source under the terms of the <a
+href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Fri Jan 13 17:35:44 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.7 (ruby-2.3.0).
+</div>
+
+    </div>
+  </body>
+</html>
