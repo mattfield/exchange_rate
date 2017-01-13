@@ -70,13 +70,18 @@ describe Quote do
       expect(@quote.date_in_range?).to eq Date.new(2017,01,10)
     end
 
-    it "should decrement today's date if the feed has not yet been updated to avoid off-by-one errors" do
+    it "should optionally decrement today's date if the feed has not yet been updated to avoid off-by-one errors" do
       quote = ECBQuote.new({
         'date' => Date.today,
         'from' => 'USD',
         'to'   => 'GBP'
       })
-      expect(quote.date_in_range?).to eq (Date.today - 1)
+      
+      if quote.all_rates.first[:date] == Date.today
+        expect(quote.date_in_range?).to eq Date.today
+      else
+        expect(quote.date_in_range?).to eq (Date.today - 1)
+      end
     end
   end
 end

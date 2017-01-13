@@ -14,7 +14,7 @@ class Quote
     rates
   end
 
-  attr_reader :amount, :date, :from, :to
+  attr_reader :all_rates, :date, :from, :to
 
   # Sets the rates of the Quote class
   #
@@ -60,19 +60,19 @@ class ECBQuote < Quote
   #
   # @return [Hash<String, String>] A hash of { currency => rate } pairs
   def get_rates
-    new_rates = []
+    @all_rates = []
 
     ECBFeed.new().each { |rate|
-      new_rates << rate
+      @all_rates << rate
     }
 
     # Make sure any dates are rounded
     # back to the nearest last weekday 
     # (as the ECB feed does not have rates
     # mapped to weekend dates
-    @date = Helper::ensure_weekday(date_in_range?(@date, new_rates))
+    @date = Helper::ensure_weekday(date_in_range?(@date, @all_rates))
 
-    get_rates_by_date(@date, new_rates)
+    get_rates_by_date(@date, @all_rates)
   end
 
   # Computes a range of conversion state for a specific date
@@ -104,7 +104,7 @@ class ECBQuote < Quote
   # @return [Date|Exception] Either returns the date passed in,
   #   a decremented date, or an Exception if the given date
   #   is out of range
-  def date_in_range?(date = @date, new_rates = @rates)
+  def date_in_range?(date = @date, new_rates = @all_rates)
     # ECB feed rates for the day are not updated until ~4pm CET.
     # In the case where we want the rates for today, but we still have
     # yesterday's feed, we need to step the query date back by a day
