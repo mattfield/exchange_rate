@@ -61,7 +61,7 @@ class ECBQuote < Quote
       rate
     end
 
-    @date = ensure_weekday(date_in_range?(@date))
+    @date = ensure_weekday(date_in_range?(@date, new_rates))
 
     REXML::XPath.each(new_rates, "[@time='#{date.xmlschema}']") do |rate|
       return rate.children.reduce({}) do |rates, currency|
@@ -73,7 +73,16 @@ class ECBQuote < Quote
     end
   end
 
-  def date_in_range?(date = @date)
+  def date_in_range?(date = @date, new_rates)
+    # ECB feed rates for the day are not updated until ~4pm CET.
+    # In the case where we want the rates for today, but we still have
+    # yesterday's feed, we need to step the query date back by a day
+    if date == Date.today
+      if new_rates.first.attribute('time') != date
+        date = date - 1
+      end
+    end
+
     # ECB feed only contains 3 months of data
     oldest_date = (Date.today << 3)
 
