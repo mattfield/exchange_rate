@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Documentation
 
-Docs are provided in `doc/`, due to issues getting this onto RubyGems.
+Docs are provided in `doc/`, due to issues getting this onto RubyGems. Clone the repo then `open doc/index.html` to view.
 
 ## Usage
 
