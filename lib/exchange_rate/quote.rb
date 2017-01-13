@@ -63,7 +63,11 @@ class ECBQuote < Quote
       new_rates << rate
     }
 
-    @date = ensure_weekday(date_in_range?(@date, new_rates))
+    # Make sure any dates are rounded
+    # back to the nearest last weekday 
+    # (as the ECB feed does not have rates
+    # mapped to weekend dates
+    @date = Helper::ensure_weekday(date_in_range?(@date, new_rates))
 
     get_rates_by_date(@date, new_rates)
   end
@@ -98,13 +102,5 @@ class ECBQuote < Quote
 
     raise Exception, 'Invalid date - must be within last 3 months'
     false
-  end
-
-  def ensure_weekday date
-    # Make sure any dates are rounded
-    # back to the nearest last weekday 
-    # (as the ECB feed does not have rates
-    # mapped to weekend dates
-    Helper::ensure_weekday(date)
   end
 end
