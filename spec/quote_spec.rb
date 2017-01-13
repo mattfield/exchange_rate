@@ -18,9 +18,8 @@ describe Quote do
   end
 
   context "Quote#rates" do
-    it "should return a Hash of { currency => rate }" do
+    it "should return a Hash" do
       expect(@quote.rates).to be_a Hash
-      expect(@quote.rates).to include("AUD" => "1.44")
     end
   end
 
