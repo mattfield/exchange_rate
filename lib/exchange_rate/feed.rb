@@ -32,7 +32,8 @@ end
 class ECBFeed < Feed
   # Enumerator for ECB feed data
   #
-  # @return [Hash<Date, String, Float>] Returns a hash rate information
+  # @return [Enumerator<Hash>] Returns an Enumerator that itself
+  #   return a Hash of rate information
   def each
     @parsed.locate("gesmes:Envelope/Cube/*/").each { |day|
       date = Date.parse(day.time)

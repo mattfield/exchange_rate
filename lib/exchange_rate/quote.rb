@@ -25,29 +25,31 @@ class Quote
 
   # Calculates the conversion rate between two currencies
   #
+  # @param from [String] The currency to convert from
+  # @param to [String] The currency to convert to
   # @return [Float] The calculated conversion rate
-  def get_conversion_rate
+  def get_conversion_rate from = @from, to = @to
     rates[DEFAULT_FROM] = DEFAULT_AMOUNT.to_s
 
-    if !rates[@to.to_s] || !rates[@from.to_s]
+    if !rates[to.to_s] || !rates[from.to_s]
       raise Exception, "FX error - either from or to currencies do not exist, or were not provided"
     end
 
-    if @from.to_s == DEFAULT_FROM
-      return round(rates[@from])
+    if from.to_s == DEFAULT_FROM
+      return round(rates[from])
     end
 
-    if @to.to_s == DEFAULT_FROM
-      return round(1 / round(rates[@from]))
+    if to.to_s == DEFAULT_FROM
+      return round(1 / round(rates[from]))
     end
 
-    round(round(rates[@to]) * (1 / round(rates[@from])))
+    round(round(rates[to]) * (1 / round(rates[from])))
   end
 
   # Formats a given numeric value as a Float
   # to five decimal places
   #
-  # @param [Numeric] Any numeric type to round
+  # @param value [Number] Any numeric type to round
   # @return [Float] Float-converted Numeric to 5d.p.
   def round value
     Float(format('%.5g', value))
