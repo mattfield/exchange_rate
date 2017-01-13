@@ -79,7 +79,7 @@ class ECBQuote < Quote
     }
   end
 
-  def date_in_range?(date = @date, new_rates)
+  def date_in_range?(date = @date, new_rates = @rates)
     # ECB feed rates for the day are not updated until ~4pm CET.
     # In the case where we want the rates for today, but we still have
     # yesterday's feed, we need to step the query date back by a day
