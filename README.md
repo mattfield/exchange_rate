@@ -1,6 +1,6 @@
 # ExchangeRate
 
-A small foreign exchange library.
+A small foreign exchange library using the very fast XML parser and Object marshaller.
 
 ## Installation
 
@@ -37,6 +37,8 @@ ExchangeRate.at(date<String|Date>, currency_from<String>, currency_to<String>)
 ExchangeRate.at(Date.today, "USD", "EUR")
 #=> 0.93642
 ```
+
+`currency_from` and `currency_to` must be three-letter ISO codes, but can by either upper or lowercase.
 
 ## Development
 

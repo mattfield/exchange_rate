@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Matt Field"]
   spec.email         = ["mattfield@fastmail.fm"]
 
-  spec.summary       = %q{FX conversion library}
+  spec.summary       = %q{FX conversion library based on the ECB 90-day feed}
   spec.homepage      = "https://github.com/mattfield/exchange_rate"
   spec.license       = "MIT"
 
@@ -28,6 +28,8 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.add_dependency 'ox', '~> 2.4', '>= 2.4.7'
 
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
