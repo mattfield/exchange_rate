@@ -20,18 +20,6 @@ class Quote
     @rates ||= get_rates
   end
 
-  def date=(value)
-    @date = value ? date_in_range?(value) : @date
-  end
-
-  def from=(value)
-    @from = value.upcase || DEFAULT_FROM
-  end
-
-  def to=(value)
-    @to = value.upcase || @to
-  end
-
   def get_conversion_rate
     rates[DEFAULT_FROM] = DEFAULT_AMOUNT.to_s
 
@@ -101,6 +89,5 @@ class ECBQuote < Quote
     return date if date >= oldest_date
 
     raise Exception, 'Invalid date - must be within last 3 months'
-    false
   end
 end

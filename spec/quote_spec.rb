@@ -33,14 +33,30 @@ describe Quote do
     end
 
     it "should return the inverse if EUR is the target currency" do
-      @quote.from = 'USD'
-      expect(@quote.get_conversion_rate).to eq @quote.round(1 / 1.0567)
+      quote = ECBQuote.new({
+        'date' => Date.new(2017,01,10),
+        'from' => 'USD',
+        'to'   => 'EUR'
+      })
+      expect(quote.get_conversion_rate).to eq @quote.round(1 / 1.0567)
     end
 
     it "should return the expected conversation rate for the date given" do
-      @quote.from = 'USD'
-      @quote.to = 'GBP'
-      expect(@quote.get_conversion_rate).to eq 0.82275
+      quote = ECBQuote.new({
+        'date' => Date.new(2017,01,10),
+        'from' => 'USD',
+        'to'   => 'GBP'
+      })
+      expect(quote.get_conversion_rate).to eq 0.82275
+    end
+
+    it "should throw an error when either `to` or `from` currency is not supported" do
+      quote = ECBQuote.new({
+        'date' => Date.new(2017,01,10),
+        'from' => 'none',
+        'to'   => 'none'
+      })
+      expect{ quote.get_conversion_rate }.to raise_error Exception
     end
   end
 
@@ -52,6 +68,15 @@ describe Quote do
     it "should return the date if in the last 3 months" do
       expect(@quote.date_in_range?).to be_a Date
       expect(@quote.date_in_range?).to eq Date.new(2017,01,10)
+    end
+
+    it "should decrement today's date if the feed has not yet been updated to avoid off-by-one errors" do
+      quote = ECBQuote.new({
+        'date' => Date.today,
+        'from' => 'USD',
+        'to'   => 'GBP'
+      })
+      expect(quote.date_in_range?).to eq (Date.today - 1)
     end
   end
 end
