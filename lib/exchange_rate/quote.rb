@@ -5,12 +5,13 @@ require 'date'
 class Quote
   DEFAULT_AMOUNT = 1
   DEFAULT_FROM = 'EUR'
+  DEFAULT_TO = 'EUR'
 
   def initialize(options = {})
     @date = options['date'].is_a?(String) ? Date.parse(options['date']) : options['date']
     @amount = options['amount'] || DEFAULT_AMOUNT
     @from = options['from'].upcase || DEFAULT_FROM
-    @to = options['to'].upcase
+    @to = options['to'].upcase || DEFAULT_TO
     rates
   end
 

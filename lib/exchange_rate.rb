@@ -15,4 +15,16 @@ module ExchangeRate
       'to'   => to
     }).get_conversion_rate
   end
+
+  def ExchangeRate.all_rates_at(date)
+    ECBQuote.new({
+      'date' => date
+    }).rates
+  end
+
+  def ExchangeRate.all_rates
+    rates = []
+    ECBFeed.new().each { |rate| rates << rate }
+    rates
+  end
 end
