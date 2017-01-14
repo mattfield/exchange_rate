@@ -83,7 +83,7 @@ class ECBQuote < Quote
   # @param new_rates [Array<Hash>] An array of all rates for all
   #   dates in the feed
   # @return [Hash<String, String>] A hash of { currency => rate } pairs
-  def get_rates_by_date(date = @date, new_rates)
+  def get_rates_by_date(date = @date, new_rates = @all_rates)
     rate_nodes = new_rates.select { |date_node|
       date_node[:date] == @date
     }
