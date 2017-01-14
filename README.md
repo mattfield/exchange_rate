@@ -4,19 +4,7 @@ A small foreign exchange library.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'exchange_rate'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install exchange_rate
+*Clone and `bundle exec rake install` to install this Gem. It does not exist on RubyGems as yet.*
 
 ## Documentation
 
