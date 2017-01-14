@@ -57,85 +57,66 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="label-ExchangeRate">ExchangeRate</h1>
+      <div id="content"><div id='filecontents'><h1 id="exchangerate">ExchangeRate</h1>
 
-<p>A small foreign exchange library using the very fast XML parser and Object
-marshaller.</p>
+<p>A small foreign exchange library.</p>
 
-<h2 id="label-Installation">Installation</h2>
+<h2 id="installation">Installation</h2>
 
-<p>Add this line to your application&#39;s Gemfile:</p>
+<p><em>Clone and <code>bundle exec rake install</code> to install this Gem. It does not exist on RubyGems as yet.</em></p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>exchange_rate</span><span class='tstring_end'>&#39;</span></span>
-</code></pre>
+<h2 id="documentation">Documentation</h2>
 
-<p>And then execute:</p>
+<p>Docs are provided in <code>doc/</code>, due to issues getting this onto RubyGems. Clone the repo then <code>open doc/index.html</code> to view.</p>
 
-<pre class="code ruby"><code class="ruby">$ bundle</code></pre>
+<h2 id="usage">Usage</h2>
 
-<p>Or install it yourself as:</p>
+<p>The current implementation is designed to work with the <a href="https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml">90-day ECB feed</a>. Grab a copy of that,
+and pop the location on disk into an environment variable:</p>
 
-<pre class="code ruby"><code class="ruby">$ gem install exchange_rate</code></pre>
-
-<h2 id="label-Documentation">Documentation</h2>
-
-<p>Docs are provided in <code>doc/</code>, due to issues getting this onto
-RubyGems. Clone the repo then <code>open doc/index.html</code> to view.</p>
-
-<h2 id="label-Usage">Usage</h2>
-
-<p>The current implementation is designed to work with the <a
-href="https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml">90-day
-ECB feed</a>. Grab a copy of that, and pop the location on disk into an
-environment variable:</p>
-
-<p><code>export XML_FEED_PATH=/path/to/feed.xml</code> or
-<code>ENV["XML_FEED_PATH"]=/path/to/feed.xml</code> if you want to avoid
-added to your global env.</p>
+<p><code>export XML_FEED_PATH=/path/to/feed.xml</code> or <code>ENV["XML_FEED_PATH"]=/path/to/feed.xml</code> if you want to avoid added to your global env.</p>
 
 <p>The library exposes the following interface:</p>
 
-<pre class="code ruby"><code class="ruby">require &#39;exchange_rate&#39;
+<p>```Ruby
+require ‘exchange_rate’</p>
 
-ExchangeRate.at(date&lt;String|Date&gt;, currency_from&lt;String&gt;, currency_to&lt;String&gt;)
+<table>
+  <tbody>
+    <tr>
+      <td>ExchangeRate.at(date&lt;String</td>
+      <td>Date&gt;, currency_from<String>, currency_to<String>)</String></String></td>
+    </tr>
+  </tbody>
+</table>
 
-# e.g. 
+<h1 id="eg">e.g.</h1>
 
-ExchangeRate.at(Date.today, &quot;USD&quot;, &quot;EUR&quot;)
-#=&gt; 0.93642</code></pre>
+<p>ExchangeRate.at(Date.today, “USD”, “EUR”)
+#=&gt; 0.93642
+```</p>
 
-<p><code>currency_from</code> and <code>currency_to</code> must be
-three-letter ISO codes, but can be either upper or lowercase.</p>
+<p><code>currency_from</code> and <code>currency_to</code> must be three-letter ISO codes, but can be either upper or lowercase.</p>
 
-<h2 id="label-Development">Development</h2>
+<h2 id="development">Development</h2>
 
-<p>After checking out the repo, run <code>bin/setup</code> to install
-dependencies. Then, run <code>rake spec</code> to run the tests.
-<code>SimpleCov</code> will output a coverage report to
-<code>/coverage</code> You can also run <code>bin/console</code> for an
-interactive prompt that will allow you to experiment.</p>
+<p>After checking out the repo, run <code>bin/setup</code> to install dependencies.
+Then, run <code>rake spec</code> to run the tests. <code>SimpleCov</code> will output a coverage report to <code>/coverage</code>
+You can also run <code>bin/console</code> for an interactive prompt that will allow you to experiment.</p>
 
-<p>To install this gem onto your local machine, run <code>bundle exec rake
-install</code>. To release a new version, update the version number in
-<code>version.rb</code>, and then run <code>bundle exec rake
-release</code>, which will create a git tag for the version, push git
-commits and tags, and push the <code>.gem</code> file to <a
-href="https://rubygems.org">rubygems.org</a>.</p>
+<p>To install this gem onto your local machine, run <code>bundle exec rake install</code>. To release a new version, update the version number in <code>version.rb</code>, and then run <code>bundle exec rake release</code>, which will create a git tag for the version, push git commits and tags, and push the <code>.gem</code> file to <a href="https://rubygems.org">rubygems.org</a>.</p>
 
-<h2 id="label-Contributing">Contributing</h2>
+<h2 id="contributing">Contributing</h2>
 
-<p>Bug reports and pull requests are welcome on GitHub at <a
-href="https://github.com/mattfield/exchange_rate">github.com/mattfield/exchange_rate</a>.</p>
+<p>Bug reports and pull requests are welcome on GitHub at https://github.com/mattfield/exchange_rate.</p>
 
-<h2 id="label-License">License</h2>
+<h2 id="license">License</h2>
 
-<p>The gem is available as open source under the terms of the <a
-href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+<p>The gem is available as open source under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri Jan 13 17:38:20 2017 by
+  Generated on Sat Jan 14 16:16:46 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.7 (ruby-2.3.0).
 </div>
