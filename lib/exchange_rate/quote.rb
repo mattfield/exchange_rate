@@ -10,8 +10,8 @@ class Quote
   def initialize(options = {})
     @date = options['date'].is_a?(String) ? Date.parse(options['date']) : options['date']
     @amount = options['amount'] || DEFAULT_AMOUNT
-    @from = options['from'].upcase || DEFAULT_FROM
-    @to = options['to'].upcase || DEFAULT_TO
+    @from = (options['from'] || DEFAULT_FROM).upcase
+    @to = (options['to'] || DEFAULT_TO).upcase
     rates
   end
 
