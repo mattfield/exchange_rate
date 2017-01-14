@@ -37,7 +37,7 @@ class Quote
     end
 
     if from.to_s == DEFAULT_FROM
-      return round(rates[from])
+      return round(rates[to])
     end
 
     if to.to_s == DEFAULT_FROM
