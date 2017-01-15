@@ -6,7 +6,7 @@ class Feed
   include Enumerable
 
   def initialize(file_path=nil)
-    @file_path = file_path ||= Config[:file_path]
+    @file_path = file_path ||= Config[:feed_path]
     @raw = read_file(file_path)
     parse
   end
