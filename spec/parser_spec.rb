@@ -2,19 +2,19 @@ require "exchange_rate/parser"
 
 describe Parser::Plain do
   before(:all) do
-    @xml = File.open("spec/fixtures/example.xml") { |f| f.read }
+    @xml = File.open(Config[:feed_path]) { |f| f.read }
     @parser = Parser::Plain.new @xml
   end
 
   it "should not accept a File type as an argument" do
     expect {
-      Parser::Plain.new(File.open "spec/fixtures/example.xml").parse
+      Parser::Plain.new(File.open Config[:feed_path]).parse
     }.to raise_error TypeError
   end
 
   it "should accept a String as an argument" do
     expect {
-      Parser::Plain.new(File.open("spec/fixtures/example.xml").read).parse
+      Parser::Plain.new(File.open(Config[:feed_path]).read).parse
     }.to_not raise_error
   end
 
