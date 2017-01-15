@@ -19,5 +19,9 @@ module Config
       @config ||= {}
       @config[name.to_sym] ||= load(name)
     end
+
+    def inspect
+      @config.inspect
+    end
   end
 end
