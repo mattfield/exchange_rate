@@ -13,9 +13,12 @@ Docs are provided in `doc/`, due to issues getting this onto RubyGems. Clone the
 ## Usage
 
 The current implementation is designed to work with the [90-day ECB feed](https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml). Grab a copy of that,
-and pop the location on disk into an environment variable:
+and pop the location on disk. Then, create a configuration file in your application at `config/exchange_rate.yml`, and add the path in a `feed_path` entry:
 
-`export XML_FEED_PATH=/path/to/feed.xml` or `ENV["XML_FEED_PATH"]=/path/to/feed.xml` if you want to avoid added to your global env.
+```YAML
+---
+feed_path: '/path/to/feed.xml'
+```
 
 The library exposes the following methods:
 

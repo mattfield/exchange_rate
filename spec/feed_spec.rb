@@ -1,4 +1,5 @@
 require 'exchange_rate/feed'
+require "exchange_rate/config"
 
 describe Feed do
   before(:all) do
