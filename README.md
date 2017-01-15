@@ -33,6 +33,16 @@ ExchangeRate.at(Date.today, "USD", "EUR")
 
 *NB* `currency_from` and `currency_to` must be three-letter ISO codes, but can be either upper or lowercase.
 
+### `.all_currencies_at(date)`
+```Ruby
+# Fetch all available currencies for a given date
+ExchangeRate.all_currencies_at(date<String|Date>)
+
+# e.g.
+ExchangeRate.all_currencies_at(Date.today)
+#=> ["USD", "JPY", "BGN"]
+```
+
 ### `.all_rates_at(date)`
 ```Ruby
 # Fetch all exchange rates for a certain date
