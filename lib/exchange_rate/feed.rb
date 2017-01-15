@@ -1,11 +1,12 @@
 require 'rexml/document'
 require 'exchange_rate/parser'
+require 'exchange_rate/config'
 
 class Feed
   include Enumerable
 
   def initialize(file_path=nil)
-    @file_path = file_path ||= ENV["XML_FEED_PATH"]
+    @file_path = file_path ||= Config[:file_path]
     @raw = read_file(file_path)
     parse
   end
