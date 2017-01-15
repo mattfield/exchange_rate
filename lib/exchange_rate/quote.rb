@@ -95,6 +95,20 @@ class ECBQuote < Quote
     }
   end
 
+  # Generates a list of all currencies available for a given date
+  #
+  # @param date [Date] The date to fetch currencies for
+  # @param new_rates [Array<Hash>] An array of all rates for all
+  #   dates in the feed
+  # @return [Array<String>] An Array of available currencies
+  def get_currencies_by_date(date = @date, new_rates = @all_rates)
+    currencies = []
+    get_rates_by_date(date, new_rates).each { |rate|
+      currencies << rate[0]
+    }
+    currencies
+  end
+
   # Checks whether a given date is in range for the rates
   # we have available in the feed. Also optionally 
   # decrements the provided date by 1 if the feed being
