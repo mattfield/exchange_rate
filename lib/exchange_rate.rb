@@ -34,4 +34,13 @@ module ExchangeRate
     ECBFeed.new().each { |rate| rates << rate }
     rates
   end
+
+  # Request all available currencies for a certain date
+  #
+  # @return [Array<String>] Array of available currencies
+  def ExchangeRate.all_currencies_at(date)
+    ECBQuote.new({
+      'date' => date
+    }).get_currencies_by_date
+  end
 end
