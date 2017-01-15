@@ -17,20 +17,42 @@ and pop the location on disk into an environment variable:
 
 `export XML_FEED_PATH=/path/to/feed.xml` or `ENV["XML_FEED_PATH"]=/path/to/feed.xml` if you want to avoid added to your global env.
 
-The library exposes the following interface:
+The library exposes the following methods:
 
+### `.at`
 ```Ruby
 require 'exchange_rate'
 
+# Fetch an exchange rate for the given date, between two currencies
 ExchangeRate.at(date<String|Date>, currency_from<String>, currency_to<String>)
 
 # e.g. 
-
 ExchangeRate.at(Date.today, "USD", "EUR")
 #=> 0.93642
 ```
 
-`currency_from` and `currency_to` must be three-letter ISO codes, but can be either upper or lowercase.
+*NB* `currency_from` and `currency_to` must be three-letter ISO codes, but can be either upper or lowercase.
+
+### `.all_rates_at(date)`
+```Ruby
+# Fetch all exchange rates for a certain date
+ExchangeRate.all_rates_at(date<String|Date>)
+
+# e.g.
+ExchangeRate.all_rates_at(Date.today)
+#=> {"USD"=>1.0661, "JPY"=>121.91, "BGN"=>1.9558 ... }
+```
+
+### `.all_rates`
+```Ruby
+# Fetch all exchange rates for the entire feed. Returns { :date, :iso, :rate }
+ExchangeRate.all_rates
+#=> [{:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"USD", :rate=>1.0661},
+#		 {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"JPY", :rate=>121.91},
+# 	 {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"BGN", :rate=>1.9558},
+#	   {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"CZK", :rate=>27.021}
+#		 ...]
+```
 
 ## Development
 
