@@ -48,10 +48,10 @@ ExchangeRate.all_rates_at(Date.today)
 # Fetch all exchange rates for the entire feed. Returns { :date, :iso, :rate }
 ExchangeRate.all_rates
 #=> [{:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"USD", :rate=>1.0661},
-#		 {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"JPY", :rate=>121.91},
-# 	 {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"BGN", :rate=>1.9558},
-#	   {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"CZK", :rate=>27.021}
-#		 ...]
+#    {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"JPY", :rate=>121.91},
+#    {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"BGN", :rate=>1.9558},
+#    {:date=>#<Date: 2017-01-13 ((2457767j,0s,0n),+0s,2299161j)>, :iso=>"CZK", :rate=>27.021}
+#    ...]
 ```
 
 ## Development
